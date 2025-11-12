@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 
 router = APIRouter()
 
@@ -52,7 +52,7 @@ async def create_note(note: NoteCreate):
         "tags": note.tags or [],
         "folder_id": note.folder_id,
         "is_pinned": False,
-        "created_at": datetime.now(),
+        "created_at": datetime.now(timezone.utc),
         "updated_at": None
     }
 

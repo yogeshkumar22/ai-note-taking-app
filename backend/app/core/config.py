@@ -14,7 +14,9 @@ class Settings(BaseSettings):
     REDIS_URL: str = "redis://localhost:6379"
     
     # Authentication
-    SECRET_KEY: str = "your-secret-key-change-this-in-production"
+    # SECURITY: Must be changed in production via environment variable
+    # Generate with: openssl rand -hex 32
+    SECRET_KEY: str = "INSECURE-DEV-KEY-CHANGE-IN-PRODUCTION-USE-openssl-rand-hex-32"
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     

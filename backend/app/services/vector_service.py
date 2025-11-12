@@ -1,5 +1,9 @@
-from typing import List, Optional
+from typing import List
 from app.core.config import settings
+
+
+# OpenAI text-embedding-ada-002 model output dimension
+OPENAI_EMBEDDING_DIMENSION = 1536
 
 
 class VectorService:
@@ -20,7 +24,7 @@ class VectorService:
             Vector embedding
         """
         # TODO: Implement actual embedding generation
-        return [0.0] * 1536  # OpenAI embedding dimension
+        return [0.0] * OPENAI_EMBEDDING_DIMENSION
     
     async def store_embedding(self, note_id: int, embedding: List[float], metadata: dict):
         """

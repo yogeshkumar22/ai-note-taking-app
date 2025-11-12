@@ -31,13 +31,13 @@ export interface UpdateNoteData {
 export const notesApi = {
   async getAll(): Promise<Note[]> {
     const response = await fetch(`${API_BASE_URL}/api/notes/`);
-    if (!response.ok) throw new Error('Failed to fetch notes');
+    if (!response.ok) throw new Error(`Failed to fetch notes: ${response.status} ${response.statusText}`);
     return response.json();
   },
 
   async getById(id: number): Promise<Note> {
     const response = await fetch(`${API_BASE_URL}/api/notes/${id}`);
-    if (!response.ok) throw new Error('Failed to fetch note');
+    if (!response.ok) throw new Error(`Failed to fetch note ${id}: ${response.status} ${response.statusText}`);
     return response.json();
   },
 
@@ -47,7 +47,7 @@ export const notesApi = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
-    if (!response.ok) throw new Error('Failed to create note');
+    if (!response.ok) throw new Error(`Failed to create note: ${response.status} ${response.statusText}`);
     return response.json();
   },
 
@@ -57,7 +57,7 @@ export const notesApi = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
-    if (!response.ok) throw new Error('Failed to update note');
+    if (!response.ok) throw new Error(`Failed to update note ${id}: ${response.status} ${response.statusText}`);
     return response.json();
   },
 
@@ -65,7 +65,7 @@ export const notesApi = {
     const response = await fetch(`${API_BASE_URL}/api/notes/${id}`, {
       method: 'DELETE',
     });
-    if (!response.ok) throw new Error('Failed to delete note');
+    if (!response.ok) throw new Error(`Failed to delete note ${id}: ${response.status} ${response.statusText}`);
   },
 };
 
@@ -77,7 +77,7 @@ export const aiApi = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ content }),
     });
-    if (!response.ok) throw new Error('Failed to summarize');
+    if (!response.ok) throw new Error(`Failed to summarize: ${response.status} ${response.statusText}`);
     return response.json();
   },
 
@@ -87,7 +87,7 @@ export const aiApi = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ question, note_ids }),
     });
-    if (!response.ok) throw new Error('Failed to get answer');
+    if (!response.ok) throw new Error(`Failed to get answer: ${response.status} ${response.statusText}`);
     return response.json();
   },
 
@@ -95,7 +95,7 @@ export const aiApi = {
     const response = await fetch(`${API_BASE_URL}/api/ai/auto-tag/${noteId}`, {
       method: 'POST',
     });
-    if (!response.ok) throw new Error('Failed to generate tags');
+    if (!response.ok) throw new Error(`Failed to generate tags for note ${noteId}: ${response.status} ${response.statusText}`);
     return response.json();
   },
 };
@@ -108,7 +108,7 @@ export const searchApi = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ query, limit }),
     });
-    if (!response.ok) throw new Error('Failed to search');
+    if (!response.ok) throw new Error(`Failed to search for "${query}": ${response.status} ${response.statusText}`);
     return response.json();
   },
 
@@ -118,7 +118,7 @@ export const searchApi = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ query, limit }),
     });
-    if (!response.ok) throw new Error('Failed to search');
+    if (!response.ok) throw new Error(`Failed to search for "${query}": ${response.status} ${response.statusText}`);
     return response.json();
   },
 };
